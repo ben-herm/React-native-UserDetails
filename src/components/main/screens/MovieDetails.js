@@ -100,9 +100,7 @@ const MovieDetails = ({route, navigation}) => {
     const checkIfFavExists =
       oldFavorites && oldFavorites.some(favId => favId === movie.id)
     if (checkIfFavExists) {
-      console.tron.log('oldFavorites1', oldFavorites)
       let newFavorites = oldFavorites.filter(fav => fav !== movie.id)
-      console.tron.log('newFavorites', newFavorites)
       dispatch(deleteFromFavorites(newFavorites))
     } else {
       setOpenModal({shouldOpen: true, method: 'Delete'})

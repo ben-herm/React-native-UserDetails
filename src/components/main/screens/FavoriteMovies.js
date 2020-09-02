@@ -37,7 +37,6 @@ const FavoriteMovies = props => {
 
   const setFavorites = () => {
     let newFavorites = []
-    console.tron.log('movies', movies)
     if (movies) {
       if (favorites) {
         movies.forEach(movie => {
@@ -46,7 +45,6 @@ const FavoriteMovies = props => {
             newFavorites.push(movie)
           }
         })
-        console.tron.log('newFavorites', newFavorites)
         setFavoritesDetails(newFavorites)
       } else {
       }
@@ -78,7 +76,6 @@ const FavoriteMovies = props => {
   }
 
   const renderFlatList = () => {
-    console.tron.log('favoritesDetails', favoritesDetails)
     return (
       <FlatList
         bounces={false}
@@ -94,7 +91,6 @@ const FavoriteMovies = props => {
   }
 
   const renderNoFavoritesMsg = () => {
-    console.tron.log('okkkkk')
     return (
       <View style={{flex: 1, justifyContent: 'center'}}>
         <Text style={{color: 'white', fontSize: 22, textAlign: 'center'}}>
