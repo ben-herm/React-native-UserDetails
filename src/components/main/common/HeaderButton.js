@@ -1,8 +1,6 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity, Platform} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import {navigateToPage} from '../../../utils/utilities'
-// import ColorPalette from "react-native-color-palette";
 
 class HeaderButton extends React.Component {
   static navigationOptions = ({navigation}) => {

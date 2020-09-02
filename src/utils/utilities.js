@@ -1,3 +1,5 @@
+// navigation utility function.
+
 export const navigateToPage = (
   pageName = 'WelcomePage',
   navigation,

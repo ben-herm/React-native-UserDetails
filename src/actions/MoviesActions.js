@@ -1,7 +1,5 @@
 import * as types from '../actions/types'
 
-// export const setPopularMovies = movies => (dispatch, getState) => {}
-
 export const setPopularMovies = payload => ({
   type: types.SET_POPULAR_MOVIES,
   payload,

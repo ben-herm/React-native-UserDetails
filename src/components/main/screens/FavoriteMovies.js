@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-
 import {
   View,
   Dimensions,
@@ -11,17 +10,16 @@ import {
   Text,
 } from 'react-native'
 import {fetchPopularMovies} from '../../../api'
-import {CustomLoader} from '../common/CustomLoader'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import {setPopularMovies} from '../../../actions/MoviesActions'
 import Constants from '../../../utils/constants'
 import {navigateToPage} from '../../../utils/utilities'
-const {width, height} = Dimensions.get('window')
 
 const FavoriteMovies = props => {
   const dispatch = useDispatch()
   const {favorites, movies} = useSelector(state => state.MovieReducer)
   const [favoritesDetails, setFavoritesDetails] = useState([])
+
+  // if movies is null fetch movies from tmdb
 
   useEffect(() => {
     if (!movies) {
@@ -31,25 +29,26 @@ const FavoriteMovies = props => {
     }
   }, [])
 
+  // set favorite movies
+
   useEffect(() => {
     if (movies) setFavorites()
   }, [movies, favorites])
 
   const setFavorites = () => {
     let newFavorites = []
-    if (movies) {
-      if (favorites) {
-        movies.forEach(movie => {
-          let found = favorites.some(id => id == movie.id)
-          if (found) {
-            newFavorites.push(movie)
-          }
-        })
-        setFavoritesDetails(newFavorites)
-      } else {
-      }
+    if (movies && favorites) {
+      movies.forEach(movie => {
+        let found = favorites.some(id => id == movie.id)
+        if (found) {
+          newFavorites.push(movie)
+        }
+      })
+      setFavoritesDetails(newFavorites)
     }
   }
+
+  // render flat list item
 
   const renderFlatListItem = data => {
     return (
@@ -75,6 +74,8 @@ const FavoriteMovies = props => {
     )
   }
 
+  // render flat list
+
   const renderFlatList = () => {
     return (
       <FlatList
@@ -90,10 +91,12 @@ const FavoriteMovies = props => {
     )
   }
 
+  // render no favorites simple msg
+
   const renderNoFavoritesMsg = () => {
     return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <Text style={{color: 'white', fontSize: 22, textAlign: 'center'}}>
+      <View style={styles.noFavoritesMsg}>
+        <Text style={styles.noFavortiesTxt}>
           {'Please Add A Favorite Movie From The Popular Movies Screen'}
         </Text>
       </View>
@@ -143,6 +146,15 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 2,
     justifyContent: 'center',
+  },
+  noFavoritesMsg: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  noFavortiesTxt: {
+    color: 'white',
+    fontSize: 22,
+    textAlign: 'center',
   },
   image: {width: 140, height: 200},
 })

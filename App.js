@@ -7,28 +7,14 @@
  */
 
 import React, {useEffect} from 'react'
-import {
-  Platform,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native'
+import {StyleSheet, StatusBar} from 'react-native'
 import {Provider} from 'react-redux'
 import RootContainer from './src/components/containers/RootContainer'
 import {store, persistor} from './src/redux/'
 import 'react-native-gesture-handler'
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen'
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context'
+import {Colors} from 'react-native/Libraries/NewAppScreen'
+import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {NavigationContainer} from '@react-navigation/native'
-import {API_KEY} from '@env'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 if (__DEV__) {
@@ -50,8 +36,8 @@ const App: () => React$Node = () => {
 
   const handlePersistorState = () => {
     const {bootstrapped} = persistor.getState()
+    console.tron.log('ok', bootstrapped)
     if (bootstrapped) {
-      // store.dispatch({ type: 'CHECK_TOKEN' })
       if (persistorSub) persistorSub()
     }
   }

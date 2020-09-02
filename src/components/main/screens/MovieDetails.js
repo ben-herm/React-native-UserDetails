@@ -5,25 +5,17 @@ import {
   ScrollView,
   Text,
   View,
-  Dimensions,
   StyleSheet,
   Image,
   TouchableOpacity,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import Constants from '../../../utils/constants'
-import {navigateToPage} from '../../../utils/utilities'
-import {
-  TouchableWithoutFeedback,
-  TouchableHighlight,
-} from 'react-native-gesture-handler'
-import {Card, ListItem, Button} from 'react-native-elements'
+import {Card} from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
 import {
   addToFavorites,
   deleteFromFavorites,
 } from '../../../actions/MoviesActions'
-const {width, height} = Dimensions.get('window')
 
 const MovieDetails = ({route, navigation}) => {
   const dispatch = useDispatch()
@@ -32,9 +24,13 @@ const MovieDetails = ({route, navigation}) => {
   const [isFavorite, setIsFavorite] = useState(false)
   const [openModal, setOpenModal] = useState({shouldOpen: false, method: ''})
 
+  // check if movie is favorite comparing to favorite array by id.
+
   useEffect(() => {
     checkIfMovieIsFavorite()
   }, [])
+
+  // check if movie is not favorite and add it, if it is open modal.
 
   const addMovieToFavorites = movie => {
     let oldFavorites = favorites
@@ -47,29 +43,19 @@ const MovieDetails = ({route, navigation}) => {
     }
   }
 
+  // modal rendering
+
   const openPopUp = method => {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={styles.modalContainer}>
         <Modal
-          style={{
-            backgroundColor: 'transparent',
-          }}
           useNativeDriver={true}
-          supportedOrientations={['landscape', 'portrait']}
-          animationType='slide'
           transparent
           isVisible={openModal.shouldOpen}
-          hasBackdrop={true}
-          animationInTiming={1000}>
-          <View
-            style={{
-              alignItems: 'center',
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              height: 140,
-              borderRadius: 16,
-            }}>
-            <View style={{flex: 1, justifyContent: 'center', marginBottom: 40}}>
+          // hasBackdrop={true}
+          animationInTiming={750}>
+          <View style={styles.outerModalView}>
+            <View style={styles.innerModalView}>
               {
                 <Text style={{textAlign: 'center', fontSize: 20}}>
                   {method == 'favorite'
@@ -95,6 +81,8 @@ const MovieDetails = ({route, navigation}) => {
     )
   }
 
+  // delete movie form favorites if it is not there open modal.
+
   const DeleteMovieFromFavorites = movie => {
     let oldFavorites = favorites
     const checkIfFavExists =
@@ -107,12 +95,43 @@ const MovieDetails = ({route, navigation}) => {
     }
   }
 
+  // check favorite (check row 30)
+
   const checkIfMovieIsFavorite = () => {
     if (favorites.length > 0) {
       let isFav = favorites.some(id => id == movie.id)
       if (isFav) setIsFavorite(true)
     }
   }
+
+  // render delete or add to favorite button.
+
+  const renderBtn = isFav => {
+    if (isFav) {
+      return (
+        <TouchableOpacity
+          onPress={() => DeleteMovieFromFavorites(movie)}
+          style={styles.addToFavBtn}>
+          <LinearGradient
+            colors={['#20002c', '#cbb4d4']}
+            style={styles.gradient}>
+            <Text style={styles.favBtnTxt}>{'Delete From Favorites'}</Text>
+          </LinearGradient>
+        </TouchableOpacity>
+      )
+    }
+    return (
+      <TouchableOpacity
+        onPress={() => addMovieToFavorites(movie)}
+        style={styles.addToFavBtn}>
+        <LinearGradient colors={['#20002c', '#cbb4d4']} style={styles.gradient}>
+          <Text style={styles.favBtnTxt}>{'Add To Favorites'}</Text>
+        </LinearGradient>
+      </TouchableOpacity>
+    )
+  }
+
+  // render movie view card showing details.
 
   const renderMovieCard = () => {
     return (
@@ -139,31 +158,7 @@ const MovieDetails = ({route, navigation}) => {
               <Text style={styles.overViewTxt}>{movie.overview}</Text>
             </View>
             <View style={styles.subSection}>
-              <View style={styles.rightSideView}>
-                {isFavorite ? (
-                  <TouchableOpacity
-                    onPress={() => DeleteMovieFromFavorites(movie)}
-                    style={styles.addToFavBtn}>
-                    <LinearGradient
-                      colors={['#20002c', '#cbb4d4']}
-                      style={styles.gradient}>
-                      <Text style={styles.favBtnTxt}>
-                        {'Delete From Favorites'}
-                      </Text>
-                    </LinearGradient>
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity
-                    onPress={() => addMovieToFavorites(movie)}
-                    style={styles.addToFavBtn}>
-                    <LinearGradient
-                      colors={['#20002c', '#cbb4d4']}
-                      style={styles.gradient}>
-                      <Text style={styles.favBtnTxt}>{'Add To Favorites'}</Text>
-                    </LinearGradient>
-                  </TouchableOpacity>
-                )}
-              </View>
+              <View style={styles.rightSideView}>{renderBtn(isFavorite)}</View>
               <View style={styles.leftSideView}>
                 <Text style={styles.leftSideTxt}>
                   {`Rating: ${movie.vote_average}`}
@@ -179,6 +174,7 @@ const MovieDetails = ({route, navigation}) => {
     )
   }
 
+  // return the movie card and open Modal based on  triggers above.
   return (
     <View style={styles.container}>
       <View
@@ -265,6 +261,23 @@ const styles = StyleSheet.create({
   },
   favBtnTxt: {
     color: 'white',
+  },
+  modalContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  innerModalView: {
+    flex: 1,
+    justifyContent: 'center',
+    marginBottom: 40,
+  },
+  outerModalView: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    height: 140,
+    borderRadius: 16,
   },
 })
 

@@ -1,31 +1,21 @@
 import React from 'react'
-import {
-  Dimensions,
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-  Platform,
-} from 'react-native'
-// import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import {Dimensions, StyleSheet, Platform} from 'react-native'
 import {
   createStackNavigator,
   TransitionSpecs,
   HeaderStyleInterpolators,
 } from '@react-navigation/stack'
 
-import {createDrawerNavigator} from '@react-navigation/drawer'
 import WelcomePage from '../components/main/WelcomePage'
 import PopularMovies from '../components/main/screens/PopularMovies'
 import FavoriteMovies from '../components/main/screens/FavoriteMovies'
 import MovieDetails from '../components/main/screens/MovieDetails'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import {fromLeft} from 'react-navigation-transitions'
 import HeaderButton from '../components/main/common/HeaderButton'
-const {width, height} = Dimensions.get('window')
 
 global.currentScreenIndex = 0
 const Stack = createStackNavigator()
-const Drawer = createDrawerNavigator()
+
+// set screen transition animation.
 
 const MyTransition = {
   gestureDirection: 'horizontal',
@@ -72,16 +62,10 @@ export const MainStack = () => {
       mode='modal'
       screenOptions={{
         gestureEnabled: false,
-
-        // headerMode: "float",
-        // headerStyle: {
-        //   height: 380 // Specify the height of your custom header
-        // },
       }}>
       <Stack.Screen
         name='WelcomeScreen'
         component={WelcomePage}
-        // headerMode="screen"
         options={{
           ...MyTransition,
           header: () => null,
@@ -150,7 +134,6 @@ export const MainStack = () => {
       <Stack.Screen
         name='MovieDetails'
         component={MovieDetails}
-        // headerMode="screen"
         options={({route, navigation}) => ({
           ...MyTransition,
           title: 'Movie Details',

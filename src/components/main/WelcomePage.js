@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import React from 'react'
+import {useDispatch} from 'react-redux'
 
 import {
   ScrollView,
@@ -7,33 +7,14 @@ import {
   View,
   Dimensions,
   StyleSheet,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
   TouchableOpacity,
-  TextInput,
-  ImageBackground,
 } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
-import Images from '../../resources/Images'
 import {navigateToPage} from '../../utils/utilities'
-// import { navigateToPage } from "../../Services/Utilities";
-// import ModalActions from "../../Redux/AppModalRedux";
-// import ListsActions from "../../Redux/ListsRedux";
-// import ExamplesRegistry from "../../Services/ExamplesRegistry";
-// import { addModalButtonsAnimation } from "../../Services/Animatables";
-// import { calcSize } from "../../Components/Styles/stylesUtils";
-// import { Overlay } from "../common/Overlay";
-// import ModalDropdown from 'react-native-modal-dropdown';
-// import CustomInput from "../TextInputs/CustomInput";
-// import { setUserSignUp } from "../../../App/Sagas/LoginSagas";
-import Icon from 'react-native-vector-icons/FontAwesome'
-
-// import ColorPalette from "react-native-color-palette";
-const {width, height} = Dimensions.get('window')
 
 const WelcomePage = props => {
   const dispatch = useDispatch()
+
+  // render welcome screen with two buttons
 
   return (
     <View style={styles.container}>
@@ -50,7 +31,6 @@ const WelcomePage = props => {
             style={{
               ...styles.BtnText,
             }}>
-            {' '}
             {'Popular Movies'}
           </Text>
         </TouchableOpacity>
@@ -63,7 +43,6 @@ const WelcomePage = props => {
             style={{
               ...styles.BtnText,
             }}>
-            {' '}
             {'Favorites'}
           </Text>
         </TouchableOpacity>
@@ -90,7 +69,6 @@ const styles = StyleSheet.create({
   },
   favoritesBtn: {
     flex: 1,
-    // borderRadius: calcSize(16.6),
     backgroundColor: '#ffffff',
     borderStyle: 'solid',
     marginLeft: 10,
@@ -100,7 +78,6 @@ const styles = StyleSheet.create({
   popularBtn: {
     flex: 1,
     marginRight: 10,
-    // borderRadius: calcSize(16.6),
     backgroundColor: '#ffffff',
     borderStyle: 'solid',
     borderWidth: 2,
