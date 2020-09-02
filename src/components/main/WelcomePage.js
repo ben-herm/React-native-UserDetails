@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
 
 import {
@@ -8,20 +8,49 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
+  Animated,
 } from 'react-native'
 import {navigateToPage} from '../../utils/utilities'
 
 const WelcomePage = props => {
   const dispatch = useDispatch()
 
-  // render welcome screen with two buttons
+  const FadeInView = () => {
+    const [fadeIn] = useState(new Animated.Value(0)) // Initial value for opacity: 0
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.welcomeTxtView}>
+    React.useEffect(() => {
+      Animated.timing(fadeIn, {
+        toValue: 1,
+        duration: 750,
+        useNativeDriver: true,
+      }).start()
+    }, [])
+
+    return (
+      <Animated.View // Special animatable View
+        style={{
+          alignSelf: 'center',
+          marginTop: 75,
+          opacity: fadeIn, // Bind opacity to animated value
+        }}>
         <Text style={styles.doneButtonText}> {'Welcome'}</Text>
-      </View>
-      <View style={styles.buttonsViewStyle}>
+      </Animated.View>
+    )
+  }
+
+  const renderBtn = () => {
+    const [fadeInBtn] = useState(new Animated.Value(0)) // Initial value for opacity: 0
+
+    React.useEffect(() => {
+      Animated.timing(fadeInBtn, {
+        toValue: 1,
+        duration: 750,
+        delay: 900,
+        useNativeDriver: true,
+      }).start()
+    }, [])
+    return (
+      <Animated.View style={{...styles.buttonsViewStyle, opacity: fadeInBtn}}>
         <TouchableOpacity
           onPress={() => navigateToPage('PopularMovies', props.navigation)}
           style={{
@@ -46,7 +75,16 @@ const WelcomePage = props => {
             {'Favorites'}
           </Text>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
+    )
+  }
+
+  // render welcome screen with two buttons
+
+  return (
+    <View style={styles.container}>
+      {FadeInView()}
+      {renderBtn()}
     </View>
   )
 }

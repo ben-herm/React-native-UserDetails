@@ -23,6 +23,8 @@ if (__DEV__) {
   )
 }
 Icon.loadFont()
+console.disableYellowBox = true
+
 const App: () => React$Node = () => {
   let persistorSub
   useEffect(() => {
