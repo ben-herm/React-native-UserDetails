@@ -56,6 +56,9 @@ buck-out/
 *.jsbundle
 
 .env
+.prettierrc.js
+yarn.lock
+metro.config.js
 
 # CocoaPods
 /ios/Pods/
