@@ -9,7 +9,7 @@ export const fetchPopularMovies = (pages = 100) =>
     axios
       .request({
         url: `${BASE_URL}/movie/popular?page=${pages}&api_key=${API_KEY}`,
-        timeout: 1000,
+        timeout: 5000,
         headers: {
           'Content-Type': 'application/json',
         },

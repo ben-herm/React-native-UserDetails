@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
+import React, {useState, useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 
 import {
   ScrollView,
@@ -10,10 +10,22 @@ import {
   TouchableOpacity,
   Animated,
 } from 'react-native'
+import {fetchPopularMovies} from '../../api'
+import {CustomLoader} from './common/CustomLoader'
+import {setPopularMovies} from '../../actions/MoviesActions'
 import {navigateToPage} from '../../utils/utilities'
 
 const WelcomePage = props => {
   const dispatch = useDispatch()
+  const {movies} = useSelector(state => state.MovieReducer)
+
+  useEffect(() => {
+    if (!movies) {
+      fetchPopularMovies().then(results =>
+        dispatch(setPopularMovies(results.data)),
+      )
+    }
+  }, [])
 
   const FadeInView = () => {
     const [fadeIn] = useState(new Animated.Value(0)) // Initial value for opacity: 0

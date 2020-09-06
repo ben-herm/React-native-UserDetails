@@ -38,7 +38,6 @@ const App: () => React$Node = () => {
 
   const handlePersistorState = () => {
     const {bootstrapped} = persistor.getState()
-    console.tron.log('ok', bootstrapped)
     if (bootstrapped) {
       if (persistorSub) persistorSub()
     }

@@ -13,21 +13,11 @@ import {fetchPopularMovies} from '../../../api'
 import {setPopularMovies} from '../../../actions/MoviesActions'
 import Constants from '../../../utils/constants'
 import {navigateToPage} from '../../../utils/utilities'
-
+const width = Dimensions.get('window').width
 const FavoriteMovies = props => {
   const dispatch = useDispatch()
   const {favorites, movies} = useSelector(state => state.MovieReducer)
   const [favoritesDetails, setFavoritesDetails] = useState([])
-
-  // if movies is null fetch movies from tmdb
-
-  useEffect(() => {
-    if (!movies) {
-      fetchPopularMovies().then(results =>
-        dispatch(setPopularMovies(results.data)),
-      )
-    }
-  }, [])
 
   // set favorite movies
 
@@ -62,6 +52,7 @@ const FavoriteMovies = props => {
         <View style={styles.imageCard}>
           <Image
             style={styles.image}
+            resizeMode='cover'
             source={{
               uri:
                 data.item.poster_path != null
@@ -91,7 +82,7 @@ const FavoriteMovies = props => {
     )
   }
 
-  // render no favorites simple msg
+  // render no favorites msg
 
   const renderNoFavoritesMsg = () => {
     return (
@@ -140,7 +131,7 @@ const styles = StyleSheet.create({
   imageCard: {
     padding: 5,
     margin: 15,
-    width: 150,
+    width: width * 0.3,
     textAlign: 'center',
     borderColor: 'white',
     borderRadius: 16,
@@ -156,7 +147,11 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
   },
-  image: {width: 140, height: 200},
+  image: {
+    flex: 1,
+    width: 'auto',
+    height: 140,
+  },
 })
 
 export default FavoriteMovies

@@ -4,6 +4,8 @@ import {View, Animated, StyleSheet} from 'react-native'
 class CustomLoader extends Component {
   constructor () {
     super()
+    //set initial scale for circles in laoder
+
     this.state = {
       circles: [
         new Animated.Value(0.005),
@@ -12,6 +14,7 @@ class CustomLoader extends Component {
       ],
     }
   }
+  //push animation sequance for each circle
 
   _animation = () => {
     const ArrayOfAnimation = []
@@ -33,8 +36,13 @@ class CustomLoader extends Component {
         ]),
       )
     })
+
+    //loop through animation and add array of sequances to parallel
+
     Animated.loop(Animated.parallel(ArrayOfAnimation)).start()
   }
+
+  //small delay
 
   componentDidMount () {
     setTimeout(() => {

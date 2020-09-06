@@ -14,7 +14,7 @@ import {CustomLoader} from '../common/CustomLoader'
 import {setPopularMovies} from '../../../actions/MoviesActions'
 import Constants from '../../../utils/constants'
 import {navigateToPage} from '../../../utils/utilities'
-
+const width = Dimensions.get('window').width
 const PopularMovies = props => {
   const dispatch = useDispatch()
   const {movies} = useSelector(state => state.MovieReducer)
@@ -22,14 +22,6 @@ const PopularMovies = props => {
   const [isLoading, setLoading] = useState(false)
 
   // fetch movies from tmdb
-
-  useEffect(() => {
-    if (!movies) {
-      fetchPopularMovies().then(results =>
-        dispatch(setPopularMovies(results.data)),
-      )
-    }
-  }, [])
 
   // set movies in state
 
@@ -53,6 +45,7 @@ const PopularMovies = props => {
         <View style={styles.imageCard}>
           <Image
             style={styles.image}
+            resizeMode='cover'
             source={{
               uri:
                 data.item.poster_path != null
@@ -89,9 +82,10 @@ const PopularMovies = props => {
       {movies ? (
         <View
           style={{
+            flex: 1,
             alignSelf: 'center',
-            alignItems: 'space-between',
-            justifyContent: 'space-between',
+            alignItems: 'center',
+            justifyContent: 'center',
             marginTop: 50,
           }}>
           {renderFlatList()}
@@ -121,16 +115,18 @@ const styles = StyleSheet.create({
     right: 0,
   },
   imageCard: {
+    flex: 1,
     padding: 5,
     margin: 15,
-    width: 150,
-    textAlign: 'center',
+    width: width * 0.3,
     borderColor: 'white',
     borderRadius: 16,
     borderWidth: 2,
-    justifyContent: 'center',
   },
-  image: {width: 140, height: 200},
+  image: {
+    width: 'auto',
+    height: 140,
+  },
 })
 
 export default PopularMovies

@@ -38,6 +38,7 @@ const MovieDetails = ({route, navigation}) => {
       oldFavorites && oldFavorites.some(favId => favId === movie.id)
     if (!shouldNotAddToFav) {
       dispatch(addToFavorites(movie.id))
+      setIsFavorite(true)
     } else {
       setOpenModal({shouldOpen: true, method: 'favorite'})
     }
@@ -67,7 +68,7 @@ const MovieDetails = ({route, navigation}) => {
             <View style={{position: 'absolute', bottom: 25}}>
               <TouchableOpacity
                 onPress={() => setOpenModal({shouldOpen: false, method: ''})}
-                style={styles.addToFavBtn}>
+                style={styles.gotItBtn}>
                 <LinearGradient
                   colors={['#ffb347', '#ffcc33']}
                   style={styles.gradient}>
@@ -90,6 +91,7 @@ const MovieDetails = ({route, navigation}) => {
     if (checkIfFavExists) {
       let newFavorites = oldFavorites.filter(fav => fav !== movie.id)
       dispatch(deleteFromFavorites(newFavorites))
+      setIsFavorite(false)
     } else {
       setOpenModal({shouldOpen: true, method: 'Delete'})
     }
@@ -113,7 +115,7 @@ const MovieDetails = ({route, navigation}) => {
           onPress={() => DeleteMovieFromFavorites(movie)}
           style={styles.addToFavBtn}>
           <LinearGradient
-            colors={['#20002c', '#cbb4d4']}
+            colors={['#ffb347', '#ffcc33']}
             style={styles.gradient}>
             <Text style={styles.favBtnTxt}>{'Delete From Favorites'}</Text>
           </LinearGradient>
@@ -124,7 +126,7 @@ const MovieDetails = ({route, navigation}) => {
       <TouchableOpacity
         onPress={() => addMovieToFavorites(movie)}
         style={styles.addToFavBtn}>
-        <LinearGradient colors={['#20002c', '#cbb4d4']} style={styles.gradient}>
+        <LinearGradient colors={['#ffb347', '#ffcc33']} style={styles.gradient}>
           <Text style={styles.favBtnTxt}>{'Add To Favorites'}</Text>
         </LinearGradient>
       </TouchableOpacity>
@@ -233,7 +235,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   leftSideTxt: {
-    fontSize: 20,
+    fontSize: 16,
+    marginHorizontal: 15,
     fontWeight: 'bold',
     fontStyle: 'normal',
     color: 'black',
@@ -241,7 +244,7 @@ const styles = StyleSheet.create({
   },
   gradient: {
     flex: 1,
-    width: 150,
+    width: 130,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
@@ -254,12 +257,23 @@ const styles = StyleSheet.create({
     height: 30,
     width: 50,
     justifyContent: 'center',
+    alignItems: 'flex-start',
+    width: 150,
+    borderRadius: 30,
+    backgroundColor: 'transparent',
+  },
+  gotItBtn: {
+    margin: 5,
+    height: 30,
+    width: 50,
+    justifyContent: 'center',
     alignItems: 'center',
     width: 150,
     borderRadius: 30,
     backgroundColor: 'transparent',
   },
   favBtnTxt: {
+    fontSize: 12,
     color: 'white',
   },
   modalContainer: {
