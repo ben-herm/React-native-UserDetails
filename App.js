@@ -17,11 +17,11 @@ import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {NavigationContainer} from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-if (__DEV__) {
-  import('./src/utils/ReactotronConfig').then(() =>
-    console.log('Reactotron Configured'),
-  )
-}
+// if (__DEV__) {
+//   import('./src/utils/ReactotronConfig').then(() =>
+//     console.log('Reactotron Configured'),
+//   )
+// }
 
 Icon.loadFont()
 LogBox.ignoreAllLogs()

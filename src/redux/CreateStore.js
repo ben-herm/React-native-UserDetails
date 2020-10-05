@@ -3,7 +3,7 @@ import Reactotron from '../utils/ReactotronConfig'
 
 // create the store
 export default rootReducer => {
-const store = createStore(rootReducer, Reactotron.createEnhancer())
+const store = createStore(rootReducer)
 
   return store
 }
