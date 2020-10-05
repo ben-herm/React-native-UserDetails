@@ -112,6 +112,7 @@ const ContactsPage = (props) => {
                 uri: data.item.picture.large || Constants.URL.PLACEHOLDER_IMAGE,
               }}
             />
+            <Text style={{alignSelf:'center'}}>{data.item.name.first + ' ' + data.item.name.last}</Text>
           </View>
         </TouchableOpacity>
       </React.Fragment>
