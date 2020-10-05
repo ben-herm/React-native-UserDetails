@@ -29,7 +29,12 @@ const ContactsPage = (props) => {
   const [loadingDone, setLoadingDone] = useState(false);
   const [contactList, setContactList] = useState([]);
   const [error, setError] = useState(false);
-
+  
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToBottom = 20; // how far from the bottom
+    return layoutMeasurement.height + contentOffset.y >= 
+    contentSize.height - paddingToBottom;
+  };
   useEffect(() => {
     initialiseList();
     // dispatch({type: PURGE})
@@ -41,9 +46,8 @@ const ContactsPage = (props) => {
 
   useEffect(() => {
     if (error) {
-      setTimeout(() => {
         loadMoreResults();
-      }, 5000);
+
     }
     setError(false);
   }, [error]);
@@ -83,7 +87,7 @@ const ContactsPage = (props) => {
               dispatch(setContacts(finalContacts));
             }
           }
-          setIsLoadingMore(false);
+          setIsLoadingMore(false)
         })
         .catch(() => {
           setIsLoadingMore(false);
@@ -125,16 +129,21 @@ const ContactsPage = (props) => {
         // bounces={false}
         data={contactList}
         showsVerticalScrollIndicator={false}
+        windowSize={75}
         ListFooterComponent={
           <View style={{padding: 15}}>
             {isloadingMore && <CustomLoader size={10} />}
           </View>
         }
-        scrollEventThrottle={250}
-        onEndReachedThreshold={0.5}
-        onEndReached={(info) => {
+        scrollEventThrottle={0}
+        onEndReachedThreshold={0.001}
+        onScroll={({ nativeEvent }) => {
+          if (isCloseToBottom(nativeEvent)) {
+            // Dont forget to debounce or throttle this function.
           loadMoreResults();
-        }}
+          }
+       }}
+
         renderItem={(item, index) => renderFlatListItem(item, index)}
         keyExtractor={(item) => item.id}
         numColumns={2}
