@@ -1,6 +1,5 @@
 import {combineReducers} from 'redux'
 import configureStore from './CreateStore'
-import MoviesRedux from '../reducers/MoviesRedux'
 import rootReducer from '../reducers/index'
 import {persistStore} from 'redux-persist'
 

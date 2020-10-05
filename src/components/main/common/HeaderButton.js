@@ -14,7 +14,7 @@ class HeaderButton extends React.Component {
       <TouchableOpacity
         style={{
           paddingHorizontal: 25,
-          marginTop: Platform.OS == 'ios' ? 0 : 30,
+          marginTop: Platform.OS == 'ios' ? 0 : 20,
         }}
         onPress={() => this.props.navigation.pop()}
         title='Info'

@@ -7,7 +7,7 @@
  */
 
 import React, {useEffect} from 'react'
-import {StyleSheet, StatusBar} from 'react-native'
+import {StyleSheet, StatusBar, LogBox } from 'react-native'
 import {Provider} from 'react-redux'
 import RootContainer from './src/components/containers/RootContainer'
 import {store, persistor} from './src/redux/'
@@ -22,8 +22,9 @@ if (__DEV__) {
     console.log('Reactotron Configured'),
   )
 }
+
 Icon.loadFont()
-console.disableYellowBox = true
+LogBox.ignoreAllLogs()
 
 const App: () => React$Node = () => {
   let persistorSub

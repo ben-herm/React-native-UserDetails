@@ -1,18 +1,17 @@
 import {combineReducers} from 'redux'
 import storage from '@react-native-community/async-storage'
 import {persistReducer} from 'redux-persist'
-import MovieReducer from './MoviesRedux'
+import ContactsReducer from './ContactsRedux'
 
-//set up persist config for movies reducer backlisting the movie paramater.
 
 const favoritesReducerConfig = {
-  key: 'MoviesReducer',
-  blacklist: ['movies'],
+  key: 'ContactsReducer',
+  blacklist: ['contacts'],
   storage,
 }
 
 const reducers = {
-  MovieReducer: persistReducer(favoritesReducerConfig, MovieReducer),
+  ContactsReducer: persistReducer(favoritesReducerConfig, ContactsReducer),
 }
 
 const appReducer = combineReducers(reducers)
