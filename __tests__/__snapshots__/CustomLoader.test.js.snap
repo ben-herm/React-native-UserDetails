@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "paddingVertical": 5,
+      },
+      Object {
+        "flex": 0,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "rgb(48,118,167)",
+        "borderRadius": 50,
+        "height": 50,
+        "marginHorizontal": 3,
+        "transform": Array [
+          Object {
+            "scale": 0.005,
+          },
+        ],
+        "width": 50,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "backgroundColor": "rgb(48,118,167)",
+        "borderRadius": 50,
+        "height": 50,
+        "marginHorizontal": 3,
+        "transform": Array [
+          Object {
+            "scale": 0.005,
+          },
+        ],
+        "width": 50,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "backgroundColor": "rgb(48,118,167)",
+        "borderRadius": 50,
+        "height": 50,
+        "marginHorizontal": 3,
+        "transform": Array [
+          Object {
+            "scale": 0.005,
+          },
+        ],
+        "width": 50,
+      }
+    }
+  />
+</View>
+`;

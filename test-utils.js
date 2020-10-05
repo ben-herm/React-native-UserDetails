@@ -6,7 +6,6 @@ import { Provider } from 'react-redux'
 import ContactsReducer from './src/reducers/ContactsRedux'
 // Import your own reducer
 
-
 function render(
   ui,
   {
