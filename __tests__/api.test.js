@@ -10,7 +10,7 @@ it('returns result', async () => {
     let p = new Promise((resolve, reject) => {
       resolve({
         json: function () {
-          return {id: 1};
+          return {};
         },
       });
     });
