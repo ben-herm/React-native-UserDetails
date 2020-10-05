@@ -11,12 +11,9 @@ export const fetchContacts = (cities = 20) =>
         },
       })
       .then(response => {
-
         resolve(response)
       })
       .catch(error => {
-
-        // console.log('ALOOOOO', error)
         reject(error)
       })
   })
