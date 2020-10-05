@@ -22,11 +22,13 @@ const width = Dimensions.get('window').width;
 import {PURGE} from 'redux-persist';
 const ContactsPage = (props) => {
   const dispatch = useDispatch();
-  const {contacts, persistedContacts} = useSelector((state) => state.ContactsReducer);
+  const {contacts, persistedContacts} = useSelector(
+    (state) => state.ContactsReducer,
+  );
   const [isloadingMore, setIsLoadingMore] = useState(false);
   const [loadingDone, setLoadingDone] = useState(false);
   const [contactList, setContactList] = useState([]);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     initialiseList();
@@ -38,11 +40,12 @@ const ContactsPage = (props) => {
   }, [persistedContacts]);
 
   useEffect(() => {
-    if(error) {
-      console.tron.log('error')
-        loadMoreResults()
-        setError(false)
+    if (error) {
+      setTimeout(() => {
+        loadMoreResults();
+      }, 5000);
     }
+    setError(false);
   }, [error]);
 
   const initialiseList = async () => {
@@ -58,8 +61,6 @@ const ContactsPage = (props) => {
   };
 
   const loadMoreResults = async () => {
-    console.tron.log('inside', isloadingMore)
-    console.tron.log('loadingDone', loadingDone)
     let newContacts;
     let finalContacts;
     if (isloadingMore || loadingDone) return;
@@ -67,26 +68,27 @@ const ContactsPage = (props) => {
     setIsLoadingMore(true);
 
     if (contacts && contacts.length > 0) {
-      fetchContacts().then((newList) => {
-        newContacts = newList;
-        if (!newContacts || newContacts.length === 0) {
-          setLoadingDone(true);
-        } else {
-          let data = Object.values(newContacts.data.results);
-          finalContacts = contacts.concat(data);
-          // arbitrary number to limit size of stored contacts in persist 
-          if(contacts.length < 40) {
-            dispatch(updateContacts(finalContacts));
+      fetchContacts()
+        .then((newList) => {
+          newContacts = newList;
+          if (!newContacts || newContacts.length === 0) {
+            setLoadingDone(true);
           } else {
-            dispatch(setContacts(finalContacts));
+            let data = Object.values(newContacts.data.results);
+            finalContacts = contacts.concat(data);
+            // arbitrary number to limit size of stored contacts in persist
+            if (contacts.length < 40) {
+              dispatch(updateContacts(finalContacts));
+            } else {
+              dispatch(setContacts(finalContacts));
+            }
           }
-
-        }
-        setIsLoadingMore(false);
-      }).catch(()=> {
-        setIsLoadingMore(false);
-        setError(true)
-      });
+          setIsLoadingMore(false);
+        })
+        .catch(() => {
+          setIsLoadingMore(false);
+          setError(true);
+        });
       setContactList(contacts);
     }
 
@@ -128,7 +130,7 @@ const ContactsPage = (props) => {
           </View>
         }
         scrollEventThrottle={250}
-        onEndReachedThreshold={0.1}
+        onEndReachedThreshold={0.5}
         onEndReached={(info) => {
           loadMoreResults();
         }}
@@ -141,7 +143,15 @@ const ContactsPage = (props) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>{contactList.length > 0 ? renderFlatList(): <View style={{marginTop: 150}}><CustomLoader size={40}/></View>}</SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      {contactList.length > 0 ? (
+        renderFlatList()
+      ) : (
+        <View style={{marginTop: 150}}>
+          <CustomLoader size={40} />
+        </View>
+      )}
+    </SafeAreaView>
   );
 };
 
