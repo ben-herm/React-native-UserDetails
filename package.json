@@ -62,6 +62,7 @@
     "setupFiles": [
       "./setupTests.js"
     ],
+    "setupFilesAfterEnv": ["./jest.setup.js"],
     "automock": false,
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|react-navigation|@react-navigation/.*))"
